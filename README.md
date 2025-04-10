@@ -21,21 +21,27 @@
 ### 🛒 Cart Page  
 ![Cart Page](./_previews/CartPage.gif)
 
+### 🔐 Login Page  
+![Login Page](./_previews/LoginPage.gif)
+
+### 📝 Signup Page  
+![Signup Page](./_previews/SignupPage.gif)
+
 ---
 
 ## ✅ Features Completed
 
-- 🏠 Home Page UI
+- 🏠 Home Page
 - 🛍️ Product Listing Page
 - 📄 Single Product Detail Page
 - 🛒 Cart Page
 - 📦 My Order Page
+- 🧾 Submit Form Handling and Validation (Login Page and Signup Page)✅
 
 ---
 
 ## 🧪 In Development / Planned Features
 
-- [ ] 🧾 Submit Form Handling and Validation  
 - [ ] 🔄 Connecting to Backend API  
 - [ ] 🔐 Auth: Signup, Login, Logout  
 - [ ] 🧭 Routing with React Router  
