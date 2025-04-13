@@ -10,7 +10,7 @@
 ![Home Page](./_previews/HomePage.gif)
 
 ### 🛍️ Products Page  
-![Products Page](./_previews/ProductPage.gif)
+![Products Page](./_previews/ProductsPage_BE.gif)
 
 ### 📄 Single Product Page  
 ![Single Product Page](./_previews/SinglePageProduct.gif)
@@ -31,20 +31,24 @@
 
 ## ✅ Features Completed
 
-- 🏠 Home Page
-- 🛍️ Product Listing Page
-- 📄 Single Product Detail Page
-- 🛒 Cart Page
-- 📦 My Order Page
-- 🧾 Submit Form Handling and Validation (Login Page and Signup Page)✅
+- 🏠 Home Page  
+- 🛍️ Product Listing Page  
+- 📄 Single Product Detail Page  
+- 🛒 Cart Page  
+- 📦 My Order Page  
+- 🧾 Submit Form Handling and Validation (Login Page and Signup Page)  
+- 🔗 Integrated Axios to fetch products from Backend API (by category, page, and single product)  
+- 🧭 Implemented React Router for page navigation  
+- 🔢 Implemented Pagination  
+- 🔄 Infinite Scrolling on Product Page  
+- ⏳ Added Loading Indicator (Loader)
 
 ---
 
 ## 🧪 In Development / Planned Features
 
 - [ ] 🔄 Connecting to Backend API  
-- [ ] 🔐 Auth: Signup, Login, Logout  
-- [ ] 🧭 Routing with React Router  
+- [ ] 🔐 Auth: Signup, Login, Logout    
 - [ ] 💾 Caching and Persistence (React Query)
 
 ---
@@ -52,13 +56,16 @@
 ## 🛠️ Technologies Used
 
 - [React](https://reactjs.org/)
-- [Vite](https://vitejs.dev/) *(optional)*
-- React Router
+- [Vite](https://vitejs.dev/)
+- [React Router](https://reactrouter.com/)
 - CSS
 - HTML
 - JavaScript
 - LocalStorage
-- React Query *(Planned)*
+- [Zod (Form Validation)](https://zod.dev/)
+- [react-hook-form](https://react-hook-form.com/)
+- [Axios](https://axios-http.com/)
+- [React Query *(Planned)*](https://tanstack.com/query/latest/docs/framework/react/overview)
 
 ---
 
