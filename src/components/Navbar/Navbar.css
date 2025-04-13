@@ -46,6 +46,13 @@
 
 .navbar_links > a {
     margin: 15px;
+    transition: all 0.4s ease-in-out;
+}
+
+.navbar_links > a.active{
+    font-weight: 1000;
+    background-color: lightgrey;
+    border-radius: 25px;
 }
 
 .cart_counts{

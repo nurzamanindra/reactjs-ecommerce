@@ -75,3 +75,9 @@
     width: fit-content;
     padding: 8px 18px;
 }
+
+.stock_quantity{
+    font-size: 20px;
+    font-weight: 600;
+    color: red;
+}

@@ -1,6 +1,7 @@
 .product_list_section{
     padding: 10px;
     padding-left: 30px;
+    position: relative;
 }
 
 .product_list_header{
@@ -27,4 +28,10 @@
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between;
+}
+
+.form_error{
+    color: red;
+    font-weight: 600;
+    font-size: 30px;
 }
