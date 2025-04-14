@@ -1,10 +1,12 @@
-import React from 'react'
+import React, {useState} from 'react'
 
 import { useForm } from 'react-hook-form'
 import { z } from 'zod'
 import { zodResolver } from '@hookform/resolvers/zod'
 
 import './LoginPage.css'
+import { login } from '../../services/userService'
+import { useNavigate } from 'react-router-dom'
 
 const schema = z.object({
   email: z.string().email({message: "custom message email invalid"}).min(3),
@@ -14,10 +16,20 @@ const schema = z.object({
 const LoginPage = () => {
 
   const {register, handleSubmit, formState: {errors}} = useForm({resolver: zodResolver(schema)});
+  const [formError, setFormError] = useState("");
 
-  const onSubmitForm = (formData) => {
-    // e.preventDefault();
-    console.log(formData);
+  let navigate = useNavigate();
+
+  const onSubmitForm = async (formData) => {
+    try {
+      await login(formData);
+      window.location = "/";
+
+    } catch (err) {
+      if(err.response && err.response.status === 400){
+        setFormError(err.response.data.message)
+      }
+    }
   };
 
   return (
@@ -38,7 +50,7 @@ const LoginPage = () => {
             {errors.password && <em className='form_error'>{errors.password.message}</em>}
 
           </div>
-
+          {formError && <em className='form_error'>{formError}</em>}
           <button type='submit' className="search_button form_submit">Submit</button>
         </div>
       </form>
