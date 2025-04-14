@@ -1,14 +1,38 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 
 import './App.css'
 import Navbar from './components/Navbar/Navbar'
 import Routing from './components/Routing/Routing'
+import { getUser } from './services/userService'
 
 
 const App = () => {
+  const [user, setUser] = useState(null);
+
+  useEffect(()=> {
+
+    try {
+      const jwtUser = getUser();
+
+      //cek if jwt token is expired
+      if(Date.now() >= jwtUser.exp * 1000) {
+        
+        localStorage.removeItem("token")
+        location.reload();
+
+      } else{
+        setUser(jwtUser);
+      }
+
+    } catch (error) {
+      //do nothing
+    }
+  }
+  , []);
+
   return (
     <div className='app'>
-      <Navbar/>
+      <Navbar user={user}/>
       <main>
         <Routing/>
       </main>

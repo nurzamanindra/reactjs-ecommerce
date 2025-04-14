@@ -37,18 +37,19 @@
 - 🛒 Cart Page  
 - 📦 My Order Page  
 - 🧾 Submit Form Handling and Validation (Login Page and Signup Page)  
-- 🔗 Integrated Axios to fetch products from Backend API (by category, page, and single product)  
+- 🔗 Integrated Axios to fetch category for Sidebar and products from Backend API (by category, page, and single product)  
 - 🧭 Implemented React Router for page navigation  
 - 🔢 Implemented Pagination  
 - 🔄 Infinite Scrolling on Product Page  
 - ⏳ Added Loading Indicator (Loader)
+- 🔐 Integrated JWT-based Auth for Signup, Login, and Logout  
+
 
 ---
 
 ## 🧪 In Development / Planned Features
 
-- [ ] 🔄 Connecting to Backend API  
-- [ ] 🔐 Auth: Signup, Login, Logout    
+- [ ] 🔄 Connecting to More Backend API  
 - [ ] 💾 Caching and Persistence (React Query)
 
 ---
@@ -62,6 +63,7 @@
 - HTML
 - JavaScript
 - LocalStorage
+- [JSON Web Token (JWT)](https://jwt.io/)
 - [Zod (Form Validation)](https://zod.dev/)
 - [react-hook-form](https://react-hook-form.com/)
 - [Axios](https://axios-http.com/)
