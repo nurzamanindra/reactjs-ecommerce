@@ -7,6 +7,17 @@
     /* border: 2px solid black; */
 }
 
+.cart_user_header{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+}
+
+.cart_user_header_details{
+    margin-left: 20px;
+}
 
 .user_info{
     gap: 16px;

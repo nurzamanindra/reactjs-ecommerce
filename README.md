@@ -1,6 +1,6 @@
 # 🛍️ React E-Commerce App
 
-> A simple e-commerce frontend built using React. This project includes multiple pages such as Home, Products, Single Product, and Cart. The project is still in progress with more features being developed.
+> A simple e-commerce frontend built using React. This project includes multiple pages such as Home, Products, Single Product, Cart, Login Page, and Signup Page. The project is still in progress with more features being developed.
 
 ---
 

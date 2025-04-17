@@ -96,13 +96,7 @@ const ProductsList = () => {
                 isLoading ? <ProductCardSkeleton/> :
                 data?.products && data.products?.map((product, index) => 
                     (<ProductCard key={product._id}
-                        id = {product._id} 
-                        image = {`http://localhost:5000/products/${product.images[0]}`}
-                        price = {product.price}
-                        title = {product.title}
-                        rating = {product.reviews.rate}
-                        ratingCounts = {product.reviews.counts}
-                        stock = {product.stock}
+                        product={product}
                     />)
                 )
             }

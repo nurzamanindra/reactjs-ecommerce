@@ -1,4 +1,5 @@
 import React, {useState} from 'react'
+import { useLocation, Navigate } from 'react-router-dom'
 
 import { useForm } from 'react-hook-form'
 import { z } from 'zod'
@@ -6,7 +7,7 @@ import { zodResolver } from '@hookform/resolvers/zod'
 
 import './LoginPage.css'
 import { login } from '../../services/userService'
-import { useNavigate } from 'react-router-dom'
+import { getUser } from '../../services/userService'
 
 const schema = z.object({
   email: z.string().email({message: "custom message email invalid"}).min(3),
@@ -17,20 +18,30 @@ const LoginPage = () => {
 
   const {register, handleSubmit, formState: {errors}} = useForm({resolver: zodResolver(schema)});
   const [formError, setFormError] = useState("");
-
-  let navigate = useNavigate();
+  
+  const location = useLocation();
 
   const onSubmitForm = async (formData) => {
     try {
       await login(formData);
-      window.location = "/";
+
+      const {state} = location;
+      window.location = state ? state.from : "/";
 
     } catch (err) {
       if(err.response && err.response.status === 400){
-        setFormError(err.response.data.message)
+        setFormError(err.response.data.message);
+      } else {
+        setFormError(`Unable to connect to backend : ${err.message}`);
       }
     }
   };
+
+  //if user already loged in and try to access this page /login
+  //redirect to HomePage "/"
+  if(getUser()) {
+    return <Navigate to="/"/>
+  }
 
   return (
     <section className='align_center form_page'>
