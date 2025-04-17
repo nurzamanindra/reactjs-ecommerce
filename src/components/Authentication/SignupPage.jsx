@@ -4,7 +4,8 @@ import { z } from "zod";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useState } from "react";
-import { signup } from "../../services/userService";
+import { getUser, signup } from "../../services/userService";
+import { Navigate } from "react-router-dom";
 
 const schema = z.object({
     name: z.string().min(3),
@@ -24,8 +25,8 @@ const SignupPage = () => {
     const [profilePic, setProfilePic]= useState(null);
     const {register, handleSubmit, formState:{errors}} = useForm({resolver: zodResolver(schema)});
     const [formError, setFormError] = useState("");
-    let navigate = useNavigate();
 
+    
     const onSubmitData = async (formData) => {
         try {
             await signup(formData, profilePic);
@@ -36,6 +37,12 @@ const SignupPage = () => {
                 setFormError(err.response.data.message)
             }
         }
+    }
+
+    //if user already loged in and try to access this page /login
+    //redirect to HomePage "/"
+    if(getUser()){
+        return <Navigate to="/"/>
     }
 
     return (

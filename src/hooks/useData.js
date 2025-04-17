@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react'
+import { useState, useEffect } from 'react';
 import apiClient from '../utils/api-client'
 
 const useData = (endpoint, customConfig, dependencies) => {

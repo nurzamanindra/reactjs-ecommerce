@@ -81,3 +81,8 @@
     font-weight: 600;
     color: red;
 }
+
+.button_disabled{
+    background-color: lightgrey;
+    color:black;
+}

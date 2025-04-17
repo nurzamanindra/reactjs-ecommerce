@@ -1,10 +1,12 @@
-import { React, useState } from 'react'
+import { React, useContext, useState } from 'react'
 
 import './SingleProductPage.css'
 import QuantityInput from './QuantityInput';
 import { useParams } from 'react-router-dom';
 import useData from '../../hooks/useData';
 import ProductCardSkeleton from '../Products/ProductCardSkeleton';
+import CartContext from '../../contexts/CartContext';
+import UserContext from '../../contexts/userContext';
 
 const SingleProductPage = () => {
   const [selectedImage, setSelectedImage] = useState(0);
@@ -12,6 +14,9 @@ const SingleProductPage = () => {
   const {id} = useParams();
   const [quantity, setQuantity] = useState(0);
   const {data : product, error, isLoading} = useData(`/products/${id}`);
+
+  const {cart, addToCart} = useContext(CartContext);
+  const user = useContext(UserContext);
 
   return (
     <section className='align_center single_product'>
@@ -39,17 +44,22 @@ const SingleProductPage = () => {
             <h1 className="single_product_title">{product.title}</h1>
             <p className="single_product_description">{product.description}</p>
             <p className="single_product_price">${product.price.toFixed(2)}</p>
+            
+            {user && <>       
+                <h2 className="quantity_title">Quantity:</h2>
+                <div className="align_center quantity_input">
+                  <QuantityInput quantity={quantity} setQuantity={setQuantity} stock={product.stock} />
+                </div>
+                {product?.stock == 0 && 
+                <div>
+                  <em className='stock_quantity'>Stock is unavailable</em>
+                </div>}
 
-            <h2 className="quantity_title">Quantity:</h2>
-            <div className="align_center quantity_input">
-              <QuantityInput quantity={quantity} setQuantity={setQuantity} stock={product.stock} />
-            </div>
-            {product?.stock == 0 && 
-            <div>
-              <em className='stock_quantity'>Stock is unavailable</em>
-            </div>}
-
-            <button className="search_button add_cart">Add to Cart</button>
+                <button 
+                disabled={quantity == 0 ? true : false} 
+                className={quantity == 0 ? "search_button add_cart button_disabled" : "search_button add_cart" } 
+                onClick={()=>addToCart(product, quantity)}>Add to Cart</button>
+            </>}
           </div>
         </>
         }
