@@ -43,13 +43,18 @@
 - 🔄 Infinite Scrolling on Product Page  
 - ⏳ Added Loading Indicator (Loader)
 - 🔐 Integrated JWT-based Auth for Signup, Login, and Logout  
-
+- 🔐 Integrated with protected backend APIs (login-required)  
+- ➕ Implemented "Add to Cart" functionality (Cart Page and via Product Cards)  
+- 🛒 Implemented fetching of user-added cart items  
+- 🧠 Implemented useContext hook for state management  
+- 💳 Implemented checkout functionality  
+- 🛡️ Implemented protected routes  
 
 ---
 
 ## 🧪 In Development / Planned Features
 
-- [ ] 🔄 Connecting to More Backend API  
+- [ ] 🔄 Connecting to More Backend APIs  
 - [ ] 💾 Caching and Persistence (React Query)
 
 ---
