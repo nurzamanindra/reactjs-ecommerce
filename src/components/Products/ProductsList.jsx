@@ -12,6 +12,11 @@ const ProductsList = () => {
   const [search, setSearch] = useSearchParams();
   const category = search.get("category");
 
+  const searchQuery = search.get("search");
+
+  const [sortBy, setSortBy] = useState("");
+  const [sortedProducts, setSortedProducts] = useState([]);
+
 //===========for page scroll==========
   const [page, setPage] = useState(1);
   const [currentScrollPos, setCurrentScrollPos] = useState(0);
@@ -24,10 +29,11 @@ const ProductsList = () => {
 
   const {data, error, isLoading} = useData("/products", {
     params: {
+        search : searchQuery,
         category,
         page
     }
-  }, [category, page]);
+  }, [searchQuery, category, page]);
 
 
 
@@ -36,7 +42,7 @@ const ProductsList = () => {
   useEffect(() => {
     setPage(1);
     window.scrollTo(0, 0, 10);
-  }, [category]);
+  }, [searchQuery, category]);
 
   useEffect(()=> {
     const handleScroll = () => {
@@ -62,6 +68,28 @@ const ProductsList = () => {
     window.scrollTo(0, parseInt(currentScrollPos + 25, 10));
   } , [data, isLoading])
 
+  useEffect(() => {
+    if(data && data.products){
+      const products = [...data.products];
+      
+      if(sortBy === "price desc") {
+        setSortedProducts(products.sort((a, b)=> b.price - a.price));
+
+      } else if(sortBy === "price asc") {
+        setSortedProducts(products.sort((a, b)=> a.price - b.price));
+    
+      } else if(sortBy === "rate desc") {
+        setSortedProducts(products.sort((a, b)=> b.reviews.rate - a.reviews.rate));
+
+      } else if(sortBy === "rate asc") {
+        setSortedProducts(products.sort((a, b)=> a.reviews.rate - b.reviews.rate));
+
+      } else {
+        setSortedProducts(products);
+      }
+    }
+  }
+    ,[sortBy, data]);
 //======for page scroll================
 
 
@@ -77,7 +105,8 @@ const ProductsList = () => {
     <section className='product_list_section'>
         <header className="align_center product_list_header">
             <h2>Products</h2>
-            <select name="sort" id="" className="product_sorting">
+            <select name="sort" id="" className="product_sorting"
+            onChange={e => setSortBy(e.target.value)}>
                 <option value="">Relevance</option>
                 <option value="price desc">Price HIGH to LOW</option>
                 <option value="price asc">Price LOW to HIGH</option>
@@ -94,8 +123,8 @@ const ProductsList = () => {
 
             {
                 isLoading ? <ProductCardSkeleton/> :
-                data?.products && data.products?.map((product, index) => 
-                    (<ProductCard key={product._id}
+                data?.products && sortedProducts.map((product, index) => 
+                    (<ProductCard key={index}
                         product={product}
                     />)
                 )
