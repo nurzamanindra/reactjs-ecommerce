@@ -9,13 +9,13 @@ const ho = [
   {
   title: "Buy iPhone 14",
   subtitle: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Autem illum qui voluptates quos, error porro.",
-  link: "",
+  link: "/product/67f90297aeb4dab4f30551ff",
   image: iphone
 },
 {
   title: "Macbook is Great!",
   subtitle: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Autem illum qui voluptates quos, error porro.",
-  link: "",
+  link: "/product/67f90297aeb4dab4f3055207",
   image: mac
 },
 ];

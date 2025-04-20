@@ -44,17 +44,21 @@
 - ⏳ Added Loading Indicator (Loader)
 - 🔐 Integrated JWT-based Auth for Signup, Login, and Logout  
 - 🔐 Integrated with protected backend APIs (login-required)  
-- ➕ Implemented "Add to Cart" functionality (Cart Page and via Product Cards)  
-- 🛒 Implemented fetching of user-added cart items  
+- ➕ "Add to Cart" functionality (Cart Page and via Product Cards)  
+- 🛒 Fetching of user-added cart items  
 - 🧠 Implemented useContext hook for state management  
-- 💳 Implemented checkout functionality  
-- 🛡️ Implemented protected routes  
+- 💳 Checkout functionality  
+- 🛡️ Implemented protected routes
+- 🌟 Fetching Featured Product for Home Page  
+- 🔍 Product Search  
+- ✨ Auto Suggestions for Product Search  
+- ⏱️ Debouncing Method for Calling Auto Suggestion API  
+- 📊 Sort Product  
 
 ---
 
 ## 🧪 In Development / Planned Features
 
-- [ ] 🔄 Connecting to More Backend APIs  
 - [ ] 💾 Caching and Persistence (React Query)
 
 ---
