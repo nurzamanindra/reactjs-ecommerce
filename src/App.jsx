@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, useCallback } from 'react'
 
 import './App.css'
 import Navbar from './components/Navbar/Navbar'
@@ -8,7 +8,7 @@ import setAuthToken from './utils/setAuthToken'
 import { addToCartAPI, getCartAPI, increaseCartQuantityAPI, decreaseCartQuantityAPI, removeCartAPI } from './services/cartService'
 
 import { ToastContainer, toast } from 'react-toastify';
-import UserContext from './contexts/userContext'
+import UserContext from './contexts/UserContext'
 import CartContext from './contexts/CartContext'
 
 setAuthToken(getJwt());
@@ -38,7 +38,7 @@ const App = () => {
   }
   , []);
 
-  const addToCart = (product, quantity) => {
+  const addToCart = useCallback((product, quantity) => {
     let updatedCart = [...cart];
 
     //check if product already in the cart, if not found this function will return -1
@@ -60,9 +60,9 @@ const App = () => {
       .catch(err => {
         toast.error("Failed to Add Product!");
       })
-  }
+  }, [cart])
 
-  const removeFromCart = (id) => {
+  const removeFromCart = useCallback((id) => {
     const oldCart = [...cart];
     const newCart = oldCart.filter(item => item.product._id !== id);
     setCart(newCart);
@@ -71,9 +71,9 @@ const App = () => {
       .catch(err => {
         toast.error(err.message)
       } );
-  }
+  }, [cart])
 
-  const updateCart = (type, id) => {
+  const updateCart = useCallback((type, id) => {
     const oldCart = [...cart];
 
     const updatedCart = [...cart];
@@ -99,9 +99,9 @@ const App = () => {
           setCart(oldCart);
         });
     }
-  }
+  }, [cart])
 
-  const getCart = () => {
+  const getCart = useCallback(() => {
     getCartAPI()
       .then(res => {
         setCart(res.data)
@@ -111,7 +111,7 @@ const App = () => {
         toast.error(`Can not get Cart Data from Backend | ${err.message}`);
 
       })
-  }
+  }, [user])
 
   useEffect(() => {
     if(user){
