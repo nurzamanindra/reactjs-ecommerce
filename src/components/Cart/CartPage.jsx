@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from 'react'
+import React, { useContext, useMemo, memo } from 'react'
 
 import './CartPage.css'
 
@@ -6,35 +6,40 @@ import Table from '../Common/Table'
 import QuantityInput from '../SingleProduct/QuantityInput'
 
 import remove from '../../assets/remove.png'
-import UserContext from '../../contexts/userContext'
+import UserContext from '../../contexts/UserContext'
 import CartContext from '../../contexts/CartContext'
 import { checkoutAPI } from '../../services/orderService'
 import { toast } from 'react-toastify'
 
 const CartPage = () => {
 
-  const [subTotal, setSubTotal] = useState(0);
-  
   const user = useContext(UserContext);
-  const {cart, removeFromCart, updateCart, setCart} = useContext(CartContext);
+  const {cart, removeFromCart, updateCart, dispatchCart} = useContext(CartContext);
 
   const checkout = async () => {
     try {
-        const res = await checkoutAPI();
+        await checkoutAPI();
         toast.success("Success placed Order");
-        setCart([]);
+        // setCart([]);
+        dispatchCart({
+            type: "GET_CART",
+            payload: {
+                products: []
+            }
+        })
     } catch (err) {
+        console.log(err)
         toast.error("can not placed Order");
     }
   }
 
-  useEffect(() => {
+  const subTotal = useMemo(() => {
     let total = 0;
     cart.forEach(item => {
         total += item.product.price * item.quantity;
     });
 
-    setSubTotal(total);
+    return total;
   }
   , [cart]);
 
@@ -100,4 +105,4 @@ const CartPage = () => {
   )
 }
 
-export default CartPage
+export default memo(CartPage)
