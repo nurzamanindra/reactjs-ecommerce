@@ -54,7 +54,7 @@
 - ✨ Auto Suggestions for Product Search  
 - ⏱️ Debouncing Method for Calling Auto Suggestion API  
 - 📊 Sort Product  
-- ➕ Optimization using hooks (useMemo, useCallback)
+- ➕ Optimization using hooks (useMemo, useCallback, useReducer)
 
 ---
 

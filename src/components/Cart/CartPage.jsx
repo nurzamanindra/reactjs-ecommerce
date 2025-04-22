@@ -14,14 +14,21 @@ import { toast } from 'react-toastify'
 const CartPage = () => {
 
   const user = useContext(UserContext);
-  const {cart, removeFromCart, updateCart, setCart} = useContext(CartContext);
+  const {cart, removeFromCart, updateCart, dispatchCart} = useContext(CartContext);
 
   const checkout = async () => {
     try {
         await checkoutAPI();
         toast.success("Success placed Order");
-        setCart([]);
+        // setCart([]);
+        dispatchCart({
+            type: "GET_CART",
+            payload: {
+                products: []
+            }
+        })
     } catch (err) {
+        console.log(err)
         toast.error("can not placed Order");
     }
   }
