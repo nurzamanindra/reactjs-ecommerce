@@ -3,10 +3,9 @@ import React, { useEffect, useState } from 'react'
 import ProductCard from './ProductCard'
 
 import './ProductsList.css'
-import useData from '../../hooks/useData'
 import ProductCardSkeleton from './ProductCardSkeleton'
 import { useSearchParams } from 'react-router-dom'
-import Pagination from '../Common/Pagination'
+import useProductList from '../../hooks/useProductList'
 
 const ProductsList = () => {
   const [search, setSearch] = useSearchParams();
@@ -18,7 +17,7 @@ const ProductsList = () => {
   const [sortedProducts, setSortedProducts] = useState([]);
 
 //===========for page scroll==========
-  const [page, setPage] = useState(1);
+  // const [page, setPage] = useState(1);
   const [currentScrollPos, setCurrentScrollPos] = useState(0);
 //===========for page scroll==========
 
@@ -27,34 +26,35 @@ const ProductsList = () => {
 //===========for pagination==========
 
 
-  const {data, error, isLoading} = useData("/products", {
-    params: {
-        search : searchQuery,
-        category,
-        page
+  const {data, error, fetchNextPage, hasNextPage, isFetching} = useProductList(
+    {
+      search : searchQuery,
+      category,
+      perPage: 4
     }
-  }, [searchQuery, category, page]);
+  );
 
-
+// console.log("data",data);
 
 //======for page scroll================
 
-  useEffect(() => {
-    setPage(1);
-    window.scrollTo(0, 0, 10);
-  }, [searchQuery, category]);
+  // useEffect(() => {
+  //   // setPage(1);
+  //   window.scrollTo(0, 0, 10);
+  // }, [searchQuery, category]);
+
 
   useEffect(()=> {
     const handleScroll = () => {
         const {scrollTop, clientHeight, scrollHeight} = document.documentElement;
-        // console.log("Scroll Top", scrollTop);
-        // console.log("Client Height", clientHeight);
-        // console.log("Scroll Height", scrollHeight);
-        // console.log("scrollTop + ClientHeight = ", parseFloat(scrollTop) + parseFloat(clientHeight));
-        if(scrollTop + clientHeight >= scrollHeight - 1 && !isLoading && data && page < data.totalPages){
+      
+        if(scrollTop + clientHeight >= scrollHeight - 1 && !isFetching && hasNextPage && data 
+          // && page < data.totalPages
+        ){
             setCurrentScrollPos(scrollTop)
             console.log("reach to bottom");
-            setPage(prev => prev + 1)
+            // setPage(prev => prev + 1)
+            fetchNextPage();
         }
 
     }  
@@ -62,16 +62,19 @@ const ProductsList = () => {
     window.addEventListener("scroll", handleScroll);
     return () =>  window.removeEventListener("scroll", handleScroll);
   }
-  , [data, isLoading]);
+  , [data]);
 
   useEffect(()=>{
     window.scrollTo(0, parseInt(currentScrollPos + 25, 10));
-  } , [data, isLoading])
+  } , [data, isFetching])
 
   useEffect(() => {
-    if(data && data.products){
-      const products = [...data.products];
-      
+    if(data && data.pages){
+      // const products = [...data.products];
+      const products = data.pages.flatMap(page => page.products) 
+
+      // console.log("products",products);
+
       if(sortBy === "price desc") {
         setSortedProducts(products.sort((a, b)=> b.price - a.price));
 
@@ -122,8 +125,8 @@ const ProductsList = () => {
             }
 
             {
-                isLoading ? <ProductCardSkeleton/> :
-                data?.products && sortedProducts.map((product, index) => 
+                isFetching ? <ProductCardSkeleton/> :
+                data && sortedProducts.map((product, index) => 
                     (<ProductCard key={index}
                         product={product}
                     />)

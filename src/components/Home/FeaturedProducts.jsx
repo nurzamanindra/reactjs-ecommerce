@@ -6,7 +6,7 @@ import useData from '../../hooks/useData'
 import ProductCardSkeleton from '../Products/ProductCardSkeleton'
 
 const FeaturedProducts = () => {
-  const {data, error, isLoading} = useData("/products/featured");
+  const {data, error, isLoading} = useData("/products/featured", null, ["products", "featured"], 10*60*60*1000); //10hr staleTime
 
   return (
     <section className="featured_products">

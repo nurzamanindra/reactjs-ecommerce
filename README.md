@@ -55,6 +55,7 @@
 - ⏱️ Debouncing Method for Calling Auto Suggestion API  
 - 📊 Sort Product  
 - ➕ Optimization using hooks (useMemo, useCallback, useReducer)
+- 💾 Caching and Persistence (React Query)
 
 ---
 
@@ -77,7 +78,7 @@
 - [Zod (Form Validation)](https://zod.dev/)
 - [react-hook-form](https://react-hook-form.com/)
 - [Axios](https://axios-http.com/)
-- [React Query *(Planned)*](https://tanstack.com/query/latest/docs/framework/react/overview)
+- [React Query](https://tanstack.com/query/latest/docs/framework/react/overview)
 
 ---
 

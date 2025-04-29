@@ -7,7 +7,7 @@ import ProductCardSkeleton from '../Products/ProductCardSkeleton'
 
 const MyOrderPage = () => {
 
-  const {data : orders, error, isLoading} = useData("/order");
+  const {data : orders, error, isLoading} = useData("/order", null, ["myorders"], 1*60*1000); //1 minutes
 
   const getProductString = order => {
     const productStringAtr = order.products.map(p => `${p.product.title}(${p.quantity})`);

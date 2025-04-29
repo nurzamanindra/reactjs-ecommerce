@@ -13,7 +13,7 @@ const SingleProductPage = () => {
 
   const {id} = useParams();
   const [quantity, setQuantity] = useState(0);
-  const {data : product, error, isLoading} = useData(`/products/${id}`);
+  const {data : product, error, isLoading} = useData(`/products/${id}`, null, ["products", id]);
 
   const {cart, addToCart} = useContext(CartContext);
   const user = useContext(UserContext);
