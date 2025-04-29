@@ -11,12 +11,46 @@ import { ToastContainer, toast } from 'react-toastify';
 import UserContext from './contexts/UserContext'
 import CartContext from './contexts/CartContext'
 import cartReducer from './reducers/cartReducer'
+import useData from './hooks/useData'
 
 setAuthToken(getJwt());
 
 const App = () => {
   const [user, setUser] = useState(null);
   const [cart, dispatchCart] = useReducer(cartReducer, []);
+  const {data: cartData, refetch} = useData("/cart", null, ["cart"]);
+
+  //====================fetching cart data========================
+    useEffect(()=>{
+      if(cartData){
+          //update cart reducer
+          dispatchCart({
+            type: "GET_CART",
+            payload: {
+              products : cartData
+            }
+          })
+      }
+    } 
+    
+    , [cartData])
+
+    useEffect(() => {
+      if(user){
+        
+        refetch();
+
+      } else {
+        // setCart([])
+        dispatchCart({
+          type: "GET_CART",
+          payload: {
+            products : []
+          }
+        })
+      }
+    }, [user]);
+  //=================end fetching cart data========================
 
   useEffect(()=> {
 
@@ -148,37 +182,25 @@ const App = () => {
     }
   }, [cart])
 
-  const getCart = useCallback(() => {
-    getCartAPI()
-      .then(res => {
-        // setCart(res.data)
-        dispatchCart({
-          type: "GET_CART",
-          payload: {
-            products : res.data
-          }
-        })
+  // const getCart = useCallback(() => {
+  //   getCartAPI()
+  //     .then(res => {
+  //       // setCart(res.data)
+  //       dispatchCart({
+  //         type: "GET_CART",
+  //         payload: {
+  //           products : res.data
+  //         }
+  //       })
 
-      })
-      .catch(err => {
-        toast.error(`Can not get Cart Data from Backend | ${err.message}`);
+  //     })
+  //     .catch(err => {
+  //       toast.error(`Can not get Cart Data from Backend | ${err.message}`);
 
-      })
-  }, [user])
+  //     })
+  // }, [user])
 
-  useEffect(() => {
-    if(user){
-      getCart();
-    } else {
-      // setCart([])
-      dispatchCart({
-        type: "GET_CART",
-        payload: {
-          products : []
-        }
-      })
-    }
-  }, [user]);
+
 
   return (
     <UserContext.Provider value={user}>
